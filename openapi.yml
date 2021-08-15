@@ -21,7 +21,7 @@ info:
     name: GPLv3
     url: https://www.gnu.org/licenses/gpl-3.0.html
 security:
-    - BasicAuth: []
+    - BearerAuth: []
 externalDocs:
   url: https://utv.uio.no/docs/nettskjema/api/
   description: Auto-generated docs with spring-restdocs-asciidoctor
@@ -1005,9 +1005,9 @@ paths:
                   ALL: Alle
 components:
   securitySchemes:
-    BasicAuth:
+    BearerAuth:
       type: http
-      scheme: basic
+      scheme: bearer
   schemas:
     '200':
       type: object
