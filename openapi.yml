@@ -5,8 +5,11 @@ servers:
 info:
   version: v2
   title: Nettskjema API
-  description: API for using Nettskjema. Your token must be generated from https://nettskjema.no/user/api/index.html
-    , see also documentation https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html and https://utv.uio.no/docs/nettskjema/api/
+  description: >-
+    API for using Nettskjema. Your token must be generated from 
+    https://nettskjema.no/user/api/index.html, see also documentation
+    https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html
+    and https://utv.uio.no/docs/nettskjema/api/
   termsOfService: 'https://www.uio.no/tjenester/it/adm-app/nettskjema/mer-om/personvern/tos.html'
   contact:
     name: Nettskjema Support
