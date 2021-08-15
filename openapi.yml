@@ -83,7 +83,6 @@ paths:
                 message: Could not find form with id 123.
                 errors: null
                 nestedErrors: null
-  /api/v2/forms/{id}:
     delete:
       summary: Delete a form with ID
       operationId: DeleteaformwithID
