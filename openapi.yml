@@ -3,17 +3,26 @@ openapi: 3.0.0
 
 servers:
 - url: https://nettskjema.no/api/v2
-  description: ''
-  variables: {}
+  description: 'Production'
 info:
-  version: 1.0.0
+  version: v2
   title: Nettskjema API
   description: API for using Nettskjema. Your token must be generated from https://nettskjema.no/user/api/index.html
     , see also documentation https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html and https://utv.uio.no/docs/nettskjema/api/
   termsOfService: 'https://www.uio.no/tjenester/it/adm-app/nettskjema/mer-om/personvern/tos.html'
-  contact: {}
-  license:
-    name: ''
+  contact:
+    name: Nettskjema Support
+    url: https://www.uio.no/tjenester/it/applikasjoner/nettskjema/
+    email: nettskjema@usit.uio.no
+  license: 
+    name: GPLv3
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+security:
+    - BasicAuth: []
+externalDocs:
+  url: 'https://utv.uio.no/docs/nettskjema/api/'
+  description: 'Auto-generated docs with spring-restdocs-asciidoctor'
+
 paths:
   "/users/admin/tokens/expire-date":
     get:
@@ -498,10 +507,5 @@ components:
       schema:
         type: number
       description: The ID of the User
-security:
-    - BasicAuth: []
 tags: []
-externalDocs:
-  url: 'https://utv.uio.no/docs/nettskjema/api/'
-  description: 'Auto-generated docs with spring-restdocs-asciidoctor'
 warnings: []
