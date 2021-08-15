@@ -1,73 +1,655 @@
-openapi: 3.0.0
-info:
-  version: 1.0.0
-  title: Nettskjema API
-servers:
-  - url: 'https://nettskjema.no/api/v2'
-  - url: 'https://nettskjema-test.uio.no/api/v2'
-
-paths:
-  /user:
-    get:
-      summary: 'Sample endpoint: Returns details about a particular user'
-      operationId: listUser
-      tags:
-        - user
-      parameters:
-        - name: id
-          in: query
-          description: ID of the user
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: 'Sample response: Details about a user by ID'
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-components:
-  schemas:
-    User:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        tag:
-          type: string
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-security:
-  - BasicAuth: []
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "https://nettskjema.no/api/v2",
+            "description": "",
+            "variables": {}
+        }
+    ],
+    "info": {
+        "version": "897c36ba-b974-4aaf-b750-2069057d563d",
+        "title": "Nettskjema API",
+        "description": "API for using Nettskjema. Your token must be generated from https://nettskjema.no/user/api/index.html , see also documentation https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html",
+        "termsOfService": "",
+        "contact": {},
+        "license": {
+            "name": ""
+        }
+    },
+    "paths": {
+        "/users/admin/tokens/expire-date": {
+            "get": {
+                "summary": "The expire date of the token",
+                "operationId": "Theexpiredateofthetoken",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Sample endpoint: Returns details about a particular user",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200"
+                                },
+                                "example": {
+                                    "expireDate": "2022-08-15T08:55:22.000+0200"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid token",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/400"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "Not token authenticated",
+                                    "errors": null,
+                                    "nestedErrors": null
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/{id}": {
+            "get": {
+                "summary": "Get metadata for a Form",
+                "operationId": "GetmetadataforaForm",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    },
+                    "403": {
+                        "description": "No access to form",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/403"
+                                },
+                                "example": {
+                                    "statusCode": 403,
+                                    "message": "No access to form with id 211434.",
+                                    "errors": null,
+                                    "nestedErrors": null
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Non existing form",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/404"
+                                },
+                                "example": {
+                                    "statusCode": 404,
+                                    "message": "Could not find form with id 123.",
+                                    "errors": null,
+                                    "nestedErrors": null
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/forms/{id}": {
+            "delete": {
+                "summary": "Delete a form with ID",
+                "operationId": "DeleteaformwithID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The ID of the form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/404"
+                                },
+                                "example": {
+                                    "error": "Not Found"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/users/{userId}": {
+            "get": {
+                "summary": "Get metadata for the forms a user can administrate",
+                "operationId": "Getmetadatafortheformsausercanadministrate",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/404"
+                                },
+                                "example": {
+                                    "statusCode": 404,
+                                    "message": "Could not find object with id 2646438.",
+                                    "errors": null,
+                                    "nestedErrors": null
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/": {
+            "post": {
+                "summary": "Create a new form",
+                "operationId": "Createanewform",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Create a new form",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200"
+                                },
+                                "example": {
+                                    "formId": 211439,
+                                    "languageCode": "nb",
+                                    "title": "FormsApiControllerTestCase",
+                                    "deliveryDestination": "DATABASE",
+                                    "formType": "DEFAULT",
+                                    "theme": "DEFAULT",
+                                    "createdBy": {
+                                        "personId": 1756715,
+                                        "username": "ttt@api",
+                                        "fullName": "ttt er en test",
+                                        "name": "ttt er en test",
+                                        "type": "API"
+                                    },
+                                    "createdDate": "2021-08-15T09:58:06.741+0200",
+                                    "modifiedDate": "2021-08-15T09:58:06.741+0200",
+                                    "respondentGroup": "ALL",
+                                    "editorsContactEmail": "test@uio.no",
+                                    "editors": [
+                                        {
+                                            "personId": 1756715,
+                                            "username": "ttt@api",
+                                            "fullName": "ttt er en test",
+                                            "name": "ttt er en test",
+                                            "type": "API"
+                                        }
+                                    ],
+                                    "collectsPersonalData": true,
+                                    "maxSubmissionsPerson": 1,
+                                    "retainRespondentAccessAfterDelivery": false,
+                                    "clientPostponable": false,
+                                    "scoreResultDisplayType": "NONE",
+                                    "personalDataPurposeTypes": [
+                                        "RESEARCH"
+                                    ],
+                                    "sensitivePersonalDataCollected": false,
+                                    "codebookActivated": false,
+                                    "shouldHideProgressBar": false,
+                                    "shouldPreventDataManipulation": false,
+                                    "shouldGetRespondentInfoFromPerson": false,
+                                    "elements": [
+                                        {
+                                            "elementId": 3260342,
+                                            "elementType": "HEADING",
+                                            "sequence": 1,
+                                            "title": "TITLE"
+                                        },
+                                        {
+                                            "elementType": "PAGE_BREAK",
+                                            "sequence": 2
+                                        },
+                                        {
+                                            "elementId": 3260343,
+                                            "elementType": "QUESTION",
+                                            "sequence": 3,
+                                            "questions": [
+                                                {
+                                                    "questionId": 3491102,
+                                                    "sequence": 1,
+                                                    "elementType": "QUESTION",
+                                                    "description": "QUESTION DESCRIPTION",
+                                                    "mandatory": false,
+                                                    "sendAdditionalRecipientEmail": false,
+                                                    "horizontal": false,
+                                                    "rangeMarksShown": false
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "newDesignEnabledSetting": "ALWAYS",
+                                    "open": false,
+                                    "possibleToHaveInvitations": false,
+                                    "sendingReceiptToRespondent": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "text/plain": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "languageCode": "nb",
+                                    "title": "FormsApiControllerTestCase",
+                                    "deliveryDestination": "DATABASE",
+                                    "formType": "DEFAULT",
+                                    "respondentGroup": "ALL",
+                                    "editorsContactEmail": "test@uio.no",
+                                    "collectsPersonalData": true,
+                                    "retainRespondentAccessAfterDelivery": false,
+                                    "clientPostponable": false,
+                                    "personalDataPurposeTypes": [
+                                        "RESEARCH"
+                                    ],
+                                    "sensitivePersonalDataCollected": false,
+                                    "codebookActivated": false,
+                                    "shouldHideProgressBar": false,
+                                    "shouldPreventDataManipulation": false,
+                                    "elements": [
+                                        {
+                                            "elementType": "HEADING",
+                                            "title": "TITLE"
+                                        },
+                                        {
+                                            "elementType": "PAGE_BREAK"
+                                        },
+                                        {
+                                            "elementType": "QUESTION",
+                                            "questions": [
+                                                {
+                                                    "description": "QUESTION DESCRIPTION",
+                                                    "sendAdditionalRecipientEmail": false
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "newDesignEnabledSetting": "ALWAYS",
+                                    "open": false,
+                                    "possibleToHaveInvitations": false,
+                                    "sendingReceiptToRespondent": false
+                                }
+                            },
+                            "example": "{\n  \"languageCode\" : \"nb\",\n  \"title\" : \"FormsApiControllerTestCase\",\n  \"deliveryDestination\" : \"DATABASE\",\n  \"formType\" : \"DEFAULT\",\n  \"respondentGroup\" : \"ALL\",\n  \"editorsContactEmail\" : \"test@uio.no\",\n  \"collectsPersonalData\" : true,\n  \"retainRespondentAccessAfterDelivery\" : false,\n  \"clientPostponable\" : false,\n  \"personalDataPurposeTypes\" : [ \"RESEARCH\" ],\n  \"sensitivePersonalDataCollected\" : false,\n  \"codebookActivated\" : false,\n  \"shouldHideProgressBar\" : false,\n  \"shouldPreventDataManipulation\" : false,\n  \"elements\" : [ {\n    \"elementType\" : \"HEADING\",\n    \"title\" : \"TITLE\"\n  }, {\n    \"elementType\" : \"PAGE_BREAK\"\n  }, {\n    \"elementType\" : \"QUESTION\",\n    \"questions\" : [ {\n      \"description\" : \"QUESTION DESCRIPTION\",\n      \"sendAdditionalRecipientEmail\" : false\n    } ]\n  } ],\n  \"newDesignEnabledSetting\" : \"ALWAYS\",\n  \"open\" : false,\n  \"possibleToHaveInvitations\" : false,\n  \"sendingReceiptToRespondent\" : false\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/{id}/codebook": {
+            "get": {
+                "summary": "Map of externalIds (codebook values) for all questions and answer options",
+                "operationId": "MapofexternalIds(codebookvalues)forallquestionsandansweroptions",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The ID of the form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get codebook fields",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200"
+                                },
+                                "example": {
+                                    "externalQuestionIds": {
+                                        "3491102": null
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.",
+                "operationId": "UpdateallexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbesettonull.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The ID of the form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200"
+                                },
+                                "example": {
+                                    "externalQuestionIds": {
+                                        "3491102": "varXXX"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "text/plain": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "externalQuestionIds": {
+                                        "3491102": "varXXX",
+                                        "7655476": "var18"
+                                    },
+                                    "externalAnswerOptionIds": {
+                                        "6821864": "0",
+                                        "6821865": "1"
+                                    }
+                                }
+                            },
+                            "example": "{\n    \"externalQuestionIds\": {\n        \"3491102\": \"varXXX\",\n        \"7655476\": \"var18\"\n    },\n    \"externalAnswerOptionIds\": {\n        \"6821864\": \"0\",\n        \"6821865\": \"1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.",
+                "operationId": "UpdateoneormoreexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbeignored.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The ID of the form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200"
+                                },
+                                "example": {
+                                    "externalQuestionIds": {
+                                        "3491102": "other_val"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "text/plain": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "externalQuestionIds": {
+                                        "3491102": "other_val"
+                                    }
+                                }
+                            },
+                            "example": "{\n  \"externalQuestionIds\" : {\n    \"3491102\" : \"other_val\"\n  }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/{id}/elements": {
+            "get": {
+                "summary": "List all elements for a form. Currently, all elements except for matrix questions (Radio and checkbox matrix) are supported.",
+                "operationId": "Listallelementsforaform.Currently,allelementsexceptformatrixquestions(Radioandcheckboxmatrix)aresupported.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The ID of the form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New Request",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/200"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "elementId": 3260342,
+                                        "elementType": "HEADING",
+                                        "sequence": 1,
+                                        "title": "TITLE"
+                                    },
+                                    {
+                                        "elementType": "PAGE_BREAK",
+                                        "sequence": 2
+                                    },
+                                    {
+                                        "elementId": 3260343,
+                                        "elementType": "QUESTION",
+                                        "sequence": 3,
+                                        "description": "QUESTION DESCRIPTION",
+                                        "mandatory": false,
+                                        "externalQuestionId": "other_val"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/{id}/questions": {
+            "get": {
+                "summary": "List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.",
+                "operationId": "Listallquestionsforaform.Thisendpointwillbedeprecatedinthefuture.Seetheelementsendpoint.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The ID of the form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New Request",
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/200"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "questionId": 3491102,
+                                        "sequence": 1,
+                                        "elementType": "QUESTION",
+                                        "description": "QUESTION DESCRIPTION",
+                                        "mandatory": false,
+                                        "externalQuestionId": "other_val",
+                                        "sendAdditionalRecipientEmail": false,
+                                        "horizontal": false,
+                                        "rangeMarksShown": false
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/{id}/submissions": {}
+    },
+    "components": {
+        "schemas": {
+            "200": {
+                "type": "object",
+                "properties": {
+                    "expireDate": {
+                        "type": "string",
+                        "description": "",
+                        "default": "2022-08-15T08:55:22.000+0200"
+                    }
+                }
+            },
+            "400": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "description": "",
+                        "default": 400
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "",
+                        "default": "Not token authenticated"
+                    },
+                    "errors": {},
+                    "nestedErrors": {}
+                }
+            },
+            "403": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "description": "",
+                        "default": 403
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "",
+                        "default": "No access to form with id 211434."
+                    },
+                    "errors": {},
+                    "nestedErrors": {}
+                }
+            },
+            "404": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "integer",
+                        "description": "",
+                        "default": 404
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "",
+                        "default": "Could not find form with id 123."
+                    },
+                    "errors": {},
+                    "nestedErrors": {}
+                }
+            }
+        },
+        "parameters": {
+            "id": {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                    "type": "number"
+                },
+                "description": "The ID of the form"
+            },
+            "userId": {
+                "name": "userId",
+                "in": "path",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                    "type": "number"
+                },
+                "description": "The ID of the User"
+            }
+        }
+    },
+    "security": [],
+    "tags": [],
+    "externalDocs": {
+        "url": "",
+        "description": ""
+    },
+    "warnings": []
+}
