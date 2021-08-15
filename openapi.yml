@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
 - url: https://nettskjema.no/api/v2
-  description: 'Production'
+  description: Production
 info:
   version: v2
   title: Nettskjema API
@@ -18,8 +18,8 @@ info:
 security:
     - BasicAuth: []
 externalDocs:
-  url: 'https://utv.uio.no/docs/nettskjema/api/'
-  description: 'Auto-generated docs with spring-restdocs-asciidoctor'
+  url: https://utv.uio.no/docs/nettskjema/api/
+  description: Auto-generated docs with spring-restdocs-asciidoctor
 paths:
   /users/admin/tokens/expire-date:
     get:
