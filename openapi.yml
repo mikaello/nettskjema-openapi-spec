@@ -88,13 +88,7 @@ paths:
       summary: Delete a form with ID
       operationId: DeleteaformwithID
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: ''
@@ -270,13 +264,7 @@ paths:
       summary: Map of externalIds (codebook values) for all questions and answer options
       operationId: MapofexternalIds(codebookvalues)forallquestionsandansweroptions
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Get codebook fields
@@ -291,13 +279,7 @@ paths:
       summary: Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.
       operationId: UpdateallexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbesettonull.
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.
@@ -336,13 +318,7 @@ paths:
       summary: Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.
       operationId: UpdateoneormoreexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbeignored.
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.
@@ -373,13 +349,7 @@ paths:
       summary: List all elements for a form. Currently, all elements except for matrix questions (Radio and checkbox matrix) are supported.
       operationId: Listallelementsforaform.Currently,allelementsexceptformatrixquestions(Radioandcheckboxmatrix)aresupported.
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: New Request
@@ -407,13 +377,7 @@ paths:
       summary: List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.
       operationId: Listallquestionsforaform.Thisendpointwillbedeprecatedinthefuture.Seetheelementsendpoint.
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: New Request
@@ -437,13 +401,7 @@ paths:
     get:
       summary: List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.
       parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: number
-          description: The ID of the form
+        - $ref: '#/components/parameters/id'
         - name: fields
           in: query
           required: false
@@ -520,18 +478,18 @@ paths:
                   state: PROCESSING
                   createdBy:
                     personId: 120333
-                    username: mikaello@uio.no
-                    fullName: Mikael Olausson
-                    name: Mikael Olausson
+                    username: tester@uio.no
+                    fullName: Test Testesen
+                    name: Test Testesen
                     type: LOCAL
                 - invitationMetadataId: 14434189
                   createdDate: 2021-08-15T16:13:45.000+0200
                   state: PROCESSING
                   createdBy:
                     personId: 120333
-                    username: mikaello@uio.no
-                    fullName: Mikael Olausson
-                    name: Mikael Olausson
+                    username: tester@uio.no
+                    fullName: Test Testesen
+                    name: Test Testesen
                     type: LOCAL
         '403':
           description: No access
@@ -669,10 +627,10 @@ paths:
             schema:
               type: string
               example:
-                - mikaello@uio.no
+                - tester@uio.no
             example: |-
               [
-                  "mikaello@uio.no"
+                  "tester@uio.no"
               ]
   /submissions/{submissionId}:
     get:
@@ -692,7 +650,7 @@ paths:
                 createdDate: 2021-08-15T10:09:19.000+0200
                 modifiedDate: 2021-08-15T10:09:19.000+0200
                 delivered: true
-                respondentEmail: mikaello@uio.no
+                respondentEmail: tester@uio.no
                 answerTime: 4390
                 answers:
                   - answerId: 97648200
@@ -700,7 +658,7 @@ paths:
                     textAnswer: abc
                   - answerId: 97648201
                     questionId: 3491089
-                    textAnswer: mikaello@uio.no
+                    textAnswer: tester@uio.no
         '403':
           description: No access
           content:
