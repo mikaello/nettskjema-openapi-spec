@@ -1,27 +1,28 @@
 openapi: 3.0.0
 servers:
-- url: https://nettskjema.no/api/v2
-  description: Production
-- url: http://nettskjema-test.uio.no/api/v2
-  description: Test
+  - url: https://nettskjema.no/api/v2
+    description: Production
+  - url: http://nettskjema-test.uio.no/api/v2
+    description: Test
 info:
   version: v2
   title: Nettskjema API
   description: >-
     API for using Nettskjema. Your token must be generated from 
     https://nettskjema.no/user/api/index.html, see also documentation
-    https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html
-    and https://utv.uio.no/docs/nettskjema/api/
-  termsOfService: 'https://www.uio.no/tjenester/it/adm-app/nettskjema/mer-om/personvern/tos.html'
+    https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html and
+    https://utv.uio.no/docs/nettskjema/api/
+  termsOfService: >-
+    https://www.uio.no/tjenester/it/adm-app/nettskjema/mer-om/personvern/tos.html
   contact:
     name: Nettskjema Support
     url: https://www.uio.no/tjenester/it/applikasjoner/nettskjema/
     email: nettskjema@usit.uio.no
-  license: 
+  license:
     name: GPLv3
     url: https://www.gnu.org/licenses/gpl-3.0.html
 security:
-    - BearerAuth: []
+  - BearerAuth: []
 externalDocs:
   url: https://utv.uio.no/docs/nettskjema/api/
   description: Auto-generated docs with spring-restdocs-asciidoctor
@@ -53,6 +54,8 @@ paths:
                 nestedErrors: null
   /forms/{id}:
     get:
+      tags:
+        - forms
       summary: Get metadata for a Form
       operationId: GetmetadataforaForm
       parameters:
@@ -84,6 +87,8 @@ paths:
                 errors: null
                 nestedErrors: null
     delete:
+      tags:
+        - forms
       summary: Delete a form with ID
       operationId: DeleteaformwithID
       parameters:
@@ -102,6 +107,8 @@ paths:
                 error: Not Found
   /forms/users/{userId}:
     get:
+      tags:
+        - forms
       summary: Get metadata for the forms a user can administrate
       operationId: Getmetadatafortheformsausercanadministrate
       parameters:
@@ -123,6 +130,8 @@ paths:
                 nestedErrors: null
   /forms/:
     post:
+      tags:
+        - forms
       summary: Create a new form
       operationId: Createanewform
       parameters: []
@@ -260,7 +269,11 @@ paths:
               }
   /forms/{id}/codebook:
     get:
-      summary: Map of externalIds (codebook values) for all questions and answer options
+      tags:
+        - forms
+      summary: >-
+        Map of externalIds (codebook values) for all questions and answer
+        options
       operationId: MapofexternalIds(codebookvalues)forallquestionsandansweroptions
       parameters:
         - $ref: '#/components/parameters/id'
@@ -275,13 +288,20 @@ paths:
                 externalQuestionIds:
                   '3491102': null
     post:
-      summary: Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.
-      operationId: UpdateallexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbesettonull.
+      tags:
+        - forms
+      summary: >-
+        Update all externalIds for a given form. QuestionIds and AnswerOptionIds
+        not found in the request will be set to null.
+      operationId: >-
+        UpdateallexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbesettonull.
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
-          description: Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.
+          description: >-
+            Update all externalIds for a given form. QuestionIds and
+            AnswerOptionIds not found in the request will be set to null.
           content:
             application/json;charset=utf-8:
               schema:
@@ -314,13 +334,20 @@ paths:
                   }
               }
     put:
-      summary: Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.
-      operationId: UpdateoneormoreexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbeignored.
+      tags:
+        - forms
+      summary: >-
+        Update one or more externalIds for a given form. QuestionIds and
+        AnswerOptionIds not found in the request will be ignored.
+      operationId: >-
+        UpdateoneormoreexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbeignored.
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
         '200':
-          description: Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.
+          description: >-
+            Update one or more externalIds for a given form. QuestionIds and
+            AnswerOptionIds not found in the request will be ignored.
           content:
             application/json;charset=utf-8:
               schema:
@@ -345,8 +372,13 @@ paths:
               }
   /forms/{id}/elements:
     get:
-      summary: List all elements for a form. Currently, all elements except for matrix questions (Radio and checkbox matrix) are supported.
-      operationId: Listallelementsforaform.Currently,allelementsexceptformatrixquestions(Radioandcheckboxmatrix)aresupported.
+      tags:
+        - forms
+      summary: >-
+        List all elements for a form. Currently, all elements except for matrix
+        questions (Radio and checkbox matrix) are supported.
+      operationId: >-
+        Listallelementsforaform.Currently,allelementsexceptformatrixquestions(Radioandcheckboxmatrix)aresupported.
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
@@ -373,8 +405,13 @@ paths:
                   externalQuestionId: other_val
   /forms/{id}/questions:
     get:
-      summary: List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.
-      operationId: Listallquestionsforaform.Thisendpointwillbedeprecatedinthefuture.Seetheelementsendpoint.
+      tags:
+        - forms
+      summary: >-
+        List all questions for a form. This endpoint will be deprecated in the
+        future. See the elements endpoint.
+      operationId: >-
+        Listallquestionsforaform.Thisendpointwillbedeprecatedinthefuture.Seetheelementsendpoint.
       parameters:
         - $ref: '#/components/parameters/id'
       responses:
@@ -398,7 +435,11 @@ paths:
                   rangeMarksShown: false
   /forms/{id}/submissions:
     get:
-      summary: List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.
+      tags:
+        - forms
+      summary: >-
+        List all questions for a form. This endpoint will be deprecated in the
+        future. See the elements endpoint.
       parameters:
         - $ref: '#/components/parameters/id'
         - name: fields
@@ -412,14 +453,19 @@ paths:
           required: false
           schema:
             type: string
-          description: |
-            The earliest delivery date for the submissions we want to include. The date must be gives as an ISO 8601 date, see https://en.wikipedia.org/wiki/ISO_8601. This will only work for forms that collect personal data.
+          description: >
+            The earliest delivery date for the submissions we want to include.
+            The date must be gives as an ISO 8601 date, see
+            https://en.wikipedia.org/wiki/ISO_8601. This will only work for
+            forms that collect personal data.
         - name: fromSubmissionId
           in: query
           required: false
           schema:
             type: number
-          description: Only returns submissions with submissionId greater than fromSubmissionId.
+          description: >-
+            Only returns submissions with submissionId greater than
+            fromSubmissionId.
       responses:
         '200':
           description: New Request
@@ -431,40 +477,46 @@ paths:
                   $ref: '#/components/schemas/200'
               example:
                 - submissionId: 15249293
-                  createdDate: '2021-08-15T10:09:19.000+0200'
-                  modifiedDate: '2021-08-15T10:09:19.000+0200'
+                  createdDate: 2021-08-15T10:09:19.000+0200
+                  modifiedDate: 2021-08-15T10:09:19.000+0200
                   delivered: true
                   respondentEmail: tester@uio.no
                   answerTime: 4390
                   answers:
-                  - answerId: 97648200
-                    questionId: 3491090
-                    textAnswer: abc
-                  - answerId: 97648201
-                    questionId: 3491089
-                    textAnswer: tester@uio.no
+                    - answerId: 97648200
+                      questionId: 3491090
+                      textAnswer: abc
+                    - answerId: 97648201
+                      questionId: 3491089
+                      textAnswer: tester@uio.no
                 - submissionId: 15248836
-                  createdDate: '2021-08-15T08:21:01.000+0200'
-                  modifiedDate: '2021-08-15T08:21:01.000+0200'
+                  createdDate: 2021-08-15T08:21:01.000+0200
+                  modifiedDate: 2021-08-15T08:21:01.000+0200
                   delivered: true
                   respondentEmail: tester@uio.no
                   answerTime: 16181
                   answers:
-                  - answerId: 97647177
-                    questionId: 3491089
-                    textAnswer: tester@uio.no
-                  - answerId: 97647178
-                    questionId: 3491090
-                    textAnswer: oeu
+                    - answerId: 97647177
+                      questionId: 3491089
+                      textAnswer: tester@uio.no
+                    - answerId: 97647178
+                      questionId: 3491090
+                      textAnswer: oeu
   /invitations/forms/{formId}:
     get:
-      summary: Request a list of invited persons, and the current state of the invitation process.
+      tags:
+        - invitations
+      summary: >-
+        Request a list of invited persons, and the current state of the
+        invitation process.
       operationId: Requestalistofinvitedpersons,andthecurrentstateoftheinvitationprocess.
       parameters:
         - $ref: '#/components/parameters/formId'
       responses:
         '200':
-          description: Request a list of invited persons, and the current state of the invitation process.
+          description: >-
+            Request a list of invited persons, and the current state of the
+            invitation process.
           content:
             application/json;charset=utf-8:
               schema:
@@ -513,6 +565,8 @@ paths:
                 errors: null
                 nestedErrors: null
     post:
+      tags:
+        - invitations
       summary: Request fields for inviting respondents to a form.
       operationId: Requestfieldsforinvitingrespondentstoaform.
       parameters:
@@ -583,13 +637,17 @@ paths:
               ]
   /invitations/forms/{formId}/remind:
     post:
+      tags:
+        - invitations
       summary: Used to remind respondents who have not already submitted a response.
       operationId: Usedtoremindrespondentswhohavenotalreadysubmittedaresponse.
       parameters:
         - $ref: '#/components/parameters/formId'
       responses:
         '200':
-          description: Used to remind respondents who have not already submitted a response.
+          description: >-
+            Used to remind respondents who have not already submitted a
+            response.
           content:
             application/json;charset=utf-8:
               schema:
@@ -633,6 +691,8 @@ paths:
               ]
   /submissions/{submissionId}:
     get:
+      tags:
+        - submissions
       summary: Get a submission
       operationId: Getasubmission
       parameters:
@@ -677,12 +737,14 @@ paths:
                 $ref: '#/components/schemas/404'
               example:
                 statusCode: 404
-                message: Could not find the submission/registration with id 15349292. It has probably been deleted.
+                message: >-
+                  Could not find the submission/registration with id 15349292.
+                  It has probably been deleted.
                 errors: null
                 nestedErrors: null
     delete:
       tags:
-        - default
+        - submissions
       summary: Delete a submission.
       parameters:
         - $ref: '#/components/parameters/submissionId'
@@ -720,6 +782,8 @@ paths:
                 nestedErrors: null
   /submissions/{submissionId}/pdf:
     get:
+      tags:
+        - submissions
       summary: Get a submission as PDF
       operationId: GetasubmissionasPDF
       parameters:
@@ -747,11 +811,15 @@ paths:
                 $ref: '#/components/schemas/404'
               example:
                 statusCode: 404
-                message: Could not find the submission/registration with id 16249292. It has probably been deleted.
+                message: >-
+                  Could not find the submission/registration with id 16249292.
+                  It has probably been deleted.
                 errors: null
                 nestedErrors: null
   /submissions/{submissionId}/attachments:
     get:
+      tags:
+        - submissions
       summary: List all attachments for a submission.
       operationId: Listallattachmentsforasubmission.
       parameters:
@@ -786,11 +854,15 @@ paths:
                 $ref: '#/components/schemas/404'
               example:
                 statusCode: 404
-                message: Could not find the submission/registration with id 16250975. It has probably been deleted.
+                message: >-
+                  Could not find the submission/registration with id 16250975.
+                  It has probably been deleted.
                 errors: null
                 nestedErrors: null
   /submissions/{submissionId}/attachments/{attachmentId}:
     get:
+      tags:
+        - submissions
       summary: Get an attachment by id.
       operationId: Getanattachmentbyid.
       parameters:
@@ -807,7 +879,8 @@ paths:
                 fileName: ESCAN - protocol specification V1-1.pdf
                 fileSize: 351765
                 mediaType: application/pdf
-                content: AwIFIvSW5mbyAxMTAgMCBSL0lEWzw2ODRGNzNEOTFFMkMyMTQwQTlGNDAzRThBOTE0M0I5RT48Njg0RjczRDkxRTJDMjE0MEE5RjQwM0U4QTkxNDNCOUU+XSAvUHJldiAzMjI2NzcvWFJlZlN0bSAzMTk2MzM+Pg0Kc3RhcnR4cmVmDQozNTE1ODANCiUlRU9G
+                content: >-
+                  AwIFIvSW5mbyAxMTAgMCBSL0lEWzw2ODRGNzNEOTFFMkMyMTQwQTlGNDAzRThBOTE0M0I5RT48Njg0RjczRDkxRTJDMjE0MEE5RjQwM0U4QTkxNDNCOUU+XSAvUHJldiAzMjI2NzcvWFJlZlN0bSAzMTk2MzM+Pg0Kc3RhcnR4cmVmDQozNTE1ODANCiUlRU9G
         '403':
           description: No access
           content:
@@ -827,11 +900,15 @@ paths:
                 $ref: '#/components/schemas/404'
               example:
                 statusCode: 404
-                message: Could not find the submission/registration with id 15251989. It has probably been deleted.
+                message: >-
+                  Could not find the submission/registration with id 15251989.
+                  It has probably been deleted.
                 errors: null
                 nestedErrors: null
   /submissions/{submissionId}/encrypted-json:
     get:
+      tags:
+        - submissions
       summary: Get an encrypted JSON-serialization of the submission.
       operationId: GetanencryptedJSON-serializationofthesubmission.
       parameters:
@@ -870,11 +947,15 @@ paths:
                 $ref: '#/components/schemas/404'
               example:
                 statusCode: 404
-                message: Could not find the submission/registration with id 15280975. It has probably been deleted.
+                message: >-
+                  Could not find the submission/registration with id 15280975.
+                  It has probably been deleted.
                 errors: null
                 nestedErrors: null
   /submissions/{submissionId}/encrypted-pdf:
     get:
+      tags:
+        - submissions
       summary: Get an encrypted PDF-serialization of the submission.
       operationId: GetanencryptedPDF-serializationofthesubmission.
       parameters:
@@ -896,6 +977,8 @@ paths:
                 nestedErrors: null
   /submissions/{submissionId}/encrypted-attachments/:
     get:
+      tags:
+        - submissions
       summary: List all encrypted attachments for a submission.
       operationId: Listallencryptedattachmentsforasubmission.
       parameters:
@@ -918,7 +1001,7 @@ paths:
   /submissions/{submissionId}/encrypted-attachments/{encryptedAttachmentId}:
     get:
       tags:
-        - default
+        - submissions
       summary: Get the encrypted attachment.
       parameters:
         - $ref: '#/components/parameters/submissionId'
@@ -1048,3 +1131,10 @@ components:
       schema:
         type: number
       description: The ID of the attachment
+tags:
+  - name: forms
+    description: Operations related to forms
+  - name: invitations
+    description: Send reminders, get invites or invite more people
+  - name: submissions
+    description: Get and delete submissions
