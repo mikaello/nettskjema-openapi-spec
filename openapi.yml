@@ -2,6 +2,8 @@ openapi: 3.0.0
 servers:
 - url: https://nettskjema.no/api/v2
   description: Production
+- url: http://nettskjema-test.uio.no/api/v2
+  description: Test
 info:
   version: v2
   title: Nettskjema API
