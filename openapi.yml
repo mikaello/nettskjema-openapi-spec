@@ -203,7 +203,7 @@ paths:
       requestBody:
         required: true
         content:
-          text/plain:
+          application/json:
             schema:
               type: string
               example:
@@ -234,6 +234,9 @@ paths:
                 open: false
                 possibleToHaveInvitations: false
                 sendingReceiptToRespondent: false
+                editors:
+                    - username: someuser@uio.no
+                    - username: someapiuser@api
             example: |-
               {
                 "languageCode" : "nb",
@@ -265,7 +268,15 @@ paths:
                 "newDesignEnabledSetting" : "ALWAYS",
                 "open" : false,
                 "possibleToHaveInvitations" : false,
-                "sendingReceiptToRespondent" : false
+                "sendingReceiptToRespondent" : false,
+                "editors": [
+                    {
+                        "username": "someuser@uio.no"
+                    },
+                    {
+                        "username": "someapiuser@api"
+                    }
+                ]
               }
   /forms/{id}/codebook:
     get:
