@@ -1,0 +1,1572 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "https://nettskjema.no/api/v2",
+      "description": "Production"
+    },
+    {
+      "url": "http://nettskjema-test.uio.no/api/v2",
+      "description": "Test"
+    }
+  ],
+  "info": {
+    "version": "v2",
+    "title": "Nettskjema API",
+    "description": "API for using Nettskjema. Your token must be generated from  https://nettskjema.no/user/api/index.html, see also documentation https://www.uio.no/tjenester/it/adm-app/nettskjema/hjelp/api.html and https://utv.uio.no/docs/nettskjema/api/",
+    "termsOfService": "https://www.uio.no/tjenester/it/adm-app/nettskjema/mer-om/personvern/tos.html",
+    "contact": {
+      "name": "Nettskjema Support",
+      "url": "https://www.uio.no/tjenester/it/applikasjoner/nettskjema/",
+      "email": "nettskjema@usit.uio.no"
+    },
+    "license": {
+      "name": "GPLv3",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "externalDocs": {
+    "url": "https://utv.uio.no/docs/nettskjema/api/",
+    "description": "Auto-generated docs with spring-restdocs-asciidoctor"
+  },
+  "paths": {
+    "/users/admin/tokens/expire-date": {
+      "get": {
+        "summary": "The expire date of the token",
+        "operationId": "Theexpiredateofthetoken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Sample endpoint: Returns details about a particular user",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "expireDate": "2022-08-15T08:55:22.000+0200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Not token authenticated",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/{id}": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Get metadata for a Form",
+        "operationId": "GetmetadataforaForm",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "403": {
+            "description": "No access to form",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to form with id 211434.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Non existing form",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find form with id 123.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Delete a form with ID",
+        "operationId": "DeleteaformwithID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "error": "Not Found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/users/{userId}": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Get metadata for the forms a user can administrate",
+        "operationId": "Getmetadatafortheformsausercanadministrate",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/userId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find object with id 2646438.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/": {
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Create a new form",
+        "operationId": "Createanewform",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Create a new form",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "formId": 211439,
+                  "languageCode": "nb",
+                  "title": "FormsApiControllerTestCase",
+                  "deliveryDestination": "DATABASE",
+                  "formType": "DEFAULT",
+                  "theme": "DEFAULT",
+                  "createdBy": {
+                    "personId": 1756715,
+                    "username": "ttt@api",
+                    "fullName": "ttt er en test",
+                    "name": "ttt er en test",
+                    "type": "API"
+                  },
+                  "createdDate": "2021-08-15T09:58:06.741+0200",
+                  "modifiedDate": "2021-08-15T09:58:06.741+0200",
+                  "respondentGroup": "ALL",
+                  "editorsContactEmail": "tester@uio.no",
+                  "editors": [
+                    {
+                      "personId": 1756715,
+                      "username": "ttt@api",
+                      "fullName": "ttt er en test",
+                      "name": "ttt er en test",
+                      "type": "API"
+                    }
+                  ],
+                  "collectsPersonalData": true,
+                  "maxSubmissionsPerson": 1,
+                  "retainRespondentAccessAfterDelivery": false,
+                  "clientPostponable": false,
+                  "scoreResultDisplayType": "NONE",
+                  "personalDataPurposeTypes": [
+                    "RESEARCH"
+                  ],
+                  "sensitivePersonalDataCollected": false,
+                  "codebookActivated": false,
+                  "shouldHideProgressBar": false,
+                  "shouldPreventDataManipulation": false,
+                  "shouldGetRespondentInfoFromPerson": false,
+                  "elements": [
+                    {
+                      "elementId": 3260342,
+                      "elementType": "HEADING",
+                      "sequence": 1,
+                      "title": "TITLE"
+                    },
+                    {
+                      "elementType": "PAGE_BREAK",
+                      "sequence": 2
+                    },
+                    {
+                      "elementId": 3260343,
+                      "elementType": "QUESTION",
+                      "sequence": 3,
+                      "questions": [
+                        {
+                          "questionId": 3491102,
+                          "sequence": 1,
+                          "elementType": "QUESTION",
+                          "description": "QUESTION DESCRIPTION",
+                          "mandatory": false,
+                          "sendAdditionalRecipientEmail": false,
+                          "horizontal": false,
+                          "rangeMarksShown": false
+                        }
+                      ]
+                    }
+                  ],
+                  "newDesignEnabledSetting": "ALWAYS",
+                  "open": false,
+                  "possibleToHaveInvitations": false,
+                  "sendingReceiptToRespondent": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "languageCode": "nb",
+                  "title": "FormsApiControllerTestCase",
+                  "deliveryDestination": "DATABASE",
+                  "formType": "DEFAULT",
+                  "respondentGroup": "ALL",
+                  "editorsContactEmail": "tester@uio.no",
+                  "collectsPersonalData": true,
+                  "retainRespondentAccessAfterDelivery": false,
+                  "clientPostponable": false,
+                  "personalDataPurposeTypes": [
+                    "RESEARCH"
+                  ],
+                  "sensitivePersonalDataCollected": false,
+                  "codebookActivated": false,
+                  "shouldHideProgressBar": false,
+                  "shouldPreventDataManipulation": false,
+                  "elements": [
+                    {
+                      "elementType": "HEADING",
+                      "title": "TITLE"
+                    },
+                    {
+                      "elementType": "PAGE_BREAK"
+                    },
+                    {
+                      "elementType": "QUESTION",
+                      "questions": [
+                        {
+                          "description": "QUESTION DESCRIPTION",
+                          "sendAdditionalRecipientEmail": false
+                        }
+                      ]
+                    }
+                  ],
+                  "newDesignEnabledSetting": "ALWAYS",
+                  "open": false,
+                  "possibleToHaveInvitations": false,
+                  "sendingReceiptToRespondent": false
+                }
+              },
+              "example": "{\n  \"languageCode\" : \"nb\",\n  \"title\" : \"FormsApiControllerTestCase\",\n  \"deliveryDestination\" : \"DATABASE\",\n  \"formType\" : \"DEFAULT\",\n  \"respondentGroup\" : \"ALL\",\n  \"editorsContactEmail\" : \"tester@uio.no\",\n  \"collectsPersonalData\" : true,\n  \"retainRespondentAccessAfterDelivery\" : false,\n  \"clientPostponable\" : false,\n  \"personalDataPurposeTypes\" : [ \"RESEARCH\" ],\n  \"sensitivePersonalDataCollected\" : false,\n  \"codebookActivated\" : false,\n  \"shouldHideProgressBar\" : false,\n  \"shouldPreventDataManipulation\" : false,\n  \"elements\" : [ {\n    \"elementType\" : \"HEADING\",\n    \"title\" : \"TITLE\"\n  }, {\n    \"elementType\" : \"PAGE_BREAK\"\n  }, {\n    \"elementType\" : \"QUESTION\",\n    \"questions\" : [ {\n      \"description\" : \"QUESTION DESCRIPTION\",\n      \"sendAdditionalRecipientEmail\" : false\n    } ]\n  } ],\n  \"newDesignEnabledSetting\" : \"ALWAYS\",\n  \"open\" : false,\n  \"possibleToHaveInvitations\" : false,\n  \"sendingReceiptToRespondent\" : false\n}"
+            }
+          }
+        }
+      }
+    },
+    "/forms/{id}/codebook": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Map of externalIds (codebook values) for all questions and answer options",
+        "operationId": "MapofexternalIds(codebookvalues)forallquestionsandansweroptions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get codebook fields",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "externalQuestionIds": {
+                    "3491102": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.",
+        "operationId": "UpdateallexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbesettonull.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update all externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be set to null.",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "externalQuestionIds": {
+                    "3491102": "varXXX"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "externalQuestionIds": {
+                    "3491102": "varXXX",
+                    "7655476": "var18"
+                  },
+                  "externalAnswerOptionIds": {
+                    "6821864": "0",
+                    "6821865": "1"
+                  }
+                }
+              },
+              "example": "{\n    \"externalQuestionIds\": {\n        \"3491102\": \"varXXX\",\n        \"7655476\": \"var18\"\n    },\n    \"externalAnswerOptionIds\": {\n        \"6821864\": \"0\",\n        \"6821865\": \"1\"\n    }\n}"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.",
+        "operationId": "UpdateoneormoreexternalIdsforagivenform.QuestionIdsandAnswerOptionIdsnotfoundintherequestwillbeignored.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update one or more externalIds for a given form. QuestionIds and AnswerOptionIds not found in the request will be ignored.",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "externalQuestionIds": {
+                    "3491102": "other_val"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": {
+                  "externalQuestionIds": {
+                    "3491102": "other_val"
+                  }
+                }
+              },
+              "example": "{\n  \"externalQuestionIds\" : {\n    \"3491102\" : \"other_val\"\n  }\n}"
+            }
+          }
+        }
+      }
+    },
+    "/forms/{id}/elements": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "List all elements for a form. Currently, all elements except for matrix questions (Radio and checkbox matrix) are supported.",
+        "operationId": "Listallelementsforaform.Currently,allelementsexceptformatrixquestions(Radioandcheckboxmatrix)aresupported.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New Request",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/200"
+                  }
+                },
+                "example": [
+                  {
+                    "elementId": 3260342,
+                    "elementType": "HEADING",
+                    "sequence": 1,
+                    "title": "TITLE"
+                  },
+                  {
+                    "elementType": "PAGE_BREAK",
+                    "sequence": 2
+                  },
+                  {
+                    "elementId": 3260343,
+                    "elementType": "QUESTION",
+                    "sequence": 3,
+                    "description": "QUESTION DESCRIPTION",
+                    "mandatory": false,
+                    "externalQuestionId": "other_val"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/{id}/questions": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.",
+        "operationId": "Listallquestionsforaform.Thisendpointwillbedeprecatedinthefuture.Seetheelementsendpoint.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New Request",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/200"
+                  }
+                },
+                "example": [
+                  {
+                    "questionId": 3491102,
+                    "sequence": 1,
+                    "elementType": "QUESTION",
+                    "description": "QUESTION DESCRIPTION",
+                    "mandatory": false,
+                    "externalQuestionId": "other_val",
+                    "sendAdditionalRecipientEmail": false,
+                    "horizontal": false,
+                    "rangeMarksShown": false
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/{id}/submissions": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "List all questions for a form. This endpoint will be deprecated in the future. See the elements endpoint.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Which fields to return. Only submissionId supported"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The earliest delivery date for the submissions we want to include. The date must be gives as an ISO 8601 date, see https://en.wikipedia.org/wiki/ISO_8601. This will only work for forms that collect personal data.\n"
+          },
+          {
+            "name": "fromSubmissionId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Only returns submissions with submissionId greater than fromSubmissionId."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New Request",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/200"
+                  }
+                },
+                "example": [
+                  {
+                    "submissionId": 15249293,
+                    "createdDate": "2021-08-15T10:09:19.000+0200",
+                    "modifiedDate": "2021-08-15T10:09:19.000+0200",
+                    "delivered": true,
+                    "respondentEmail": "tester@uio.no",
+                    "answerTime": 4390,
+                    "answers": [
+                      {
+                        "answerId": 97648200,
+                        "questionId": 3491090,
+                        "textAnswer": "abc"
+                      },
+                      {
+                        "answerId": 97648201,
+                        "questionId": 3491089,
+                        "textAnswer": "tester@uio.no"
+                      }
+                    ]
+                  },
+                  {
+                    "submissionId": 15248836,
+                    "createdDate": "2021-08-15T08:21:01.000+0200",
+                    "modifiedDate": "2021-08-15T08:21:01.000+0200",
+                    "delivered": true,
+                    "respondentEmail": "tester@uio.no",
+                    "answerTime": 16181,
+                    "answers": [
+                      {
+                        "answerId": 97647177,
+                        "questionId": 3491089,
+                        "textAnswer": "tester@uio.no"
+                      },
+                      {
+                        "answerId": 97647178,
+                        "questionId": 3491090,
+                        "textAnswer": "oeu"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invitations/forms/{formId}": {
+      "get": {
+        "tags": [
+          "invitations"
+        ],
+        "summary": "Request a list of invited persons, and the current state of the invitation process.",
+        "operationId": "Requestalistofinvitedpersons,andthecurrentstateoftheinvitationprocess.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/formId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request a list of invited persons, and the current state of the invitation process.",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/200"
+                  }
+                },
+                "example": [
+                  {
+                    "invitationMetadataId": 14434188,
+                    "createdDate": "2021-08-15T16:13:45.000+0200",
+                    "state": "PROCESSING",
+                    "createdBy": {
+                      "personId": 120333,
+                      "username": "tester@uio.no",
+                      "fullName": "Test Testesen",
+                      "name": "Test Testesen",
+                      "type": "LOCAL"
+                    }
+                  },
+                  {
+                    "invitationMetadataId": 14434189,
+                    "createdDate": "2021-08-15T16:13:45.000+0200",
+                    "state": "PROCESSING",
+                    "createdBy": {
+                      "personId": 120333,
+                      "username": "tester@uio.no",
+                      "fullName": "Test Testesen",
+                      "name": "Test Testesen",
+                      "type": "LOCAL"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to form with id 211452.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find form with id 211459.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "invitations"
+        ],
+        "summary": "Request fields for inviting respondents to a form.",
+        "operationId": "Requestfieldsforinvitingrespondentstoaform.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/formId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request fields for inviting respondents to a form.",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/200"
+                  }
+                },
+                "example": [
+                  {
+                    "invitationMetadataId": 14434190,
+                    "createdDate": "2021-08-15T16:15:24.110+0200",
+                    "state": "PROCESSING",
+                    "createdBy": {
+                      "personId": 1756715,
+                      "username": "ttt@api",
+                      "fullName": "ttt er en test",
+                      "name": "ttt er en test",
+                      "type": "API"
+                    }
+                  },
+                  {
+                    "invitationMetadataId": 14434191,
+                    "createdDate": "2021-08-15T16:15:24.123+0200",
+                    "state": "PROCESSING",
+                    "createdBy": {
+                      "personId": 1756715,
+                      "username": "ttt@api",
+                      "fullName": "ttt er en test",
+                      "name": "ttt er en test",
+                      "type": "API"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to form with id 211452.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find form with id 211459.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": [
+                  "morn@test.uio.no",
+                  "hei@test.uio.no"
+                ]
+              },
+              "example": "[\n    \"morn@test.uio.no\",\n    \"hei@test.uio.no\"\n]"
+            }
+          }
+        }
+      }
+    },
+    "/invitations/forms/{formId}/remind": {
+      "post": {
+        "tags": [
+          "invitations"
+        ],
+        "summary": "Used to remind respondents who have not already submitted a response.",
+        "operationId": "Usedtoremindrespondentswhohavenotalreadysubmittedaresponse.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/formId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Used to remind respondents who have not already submitted a response.",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "success": 1,
+                  "failed": 0
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "You do not have access to edit form with id 211452.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find form with id 211459.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": [
+                  "tester@uio.no"
+                ]
+              },
+              "example": "[\n    \"tester@uio.no\"\n]"
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get a submission",
+        "operationId": "Getasubmission",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a submission",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "submissionId": 15249293,
+                  "createdDate": "2021-08-15T10:09:19.000+0200",
+                  "modifiedDate": "2021-08-15T10:09:19.000+0200",
+                  "delivered": true,
+                  "respondentEmail": "tester@uio.no",
+                  "answerTime": 4390,
+                  "answers": [
+                    {
+                      "answerId": 97648200,
+                      "questionId": 3491090,
+                      "textAnswer": "abc"
+                    },
+                    {
+                      "answerId": 97648201,
+                      "questionId": 3491089,
+                      "textAnswer": "tester@uio.no"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to submission with id 15249292.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find the submission/registration with id 15349292. It has probably been deleted.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Delete a submission.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": null
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to submission with id 15250970.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find the submission/registration with id 234234. It has probably been deleted.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/pdf": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get a submission as PDF",
+        "operationId": "GetasubmissionasPDF",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "403": {
+            "description": "Get a submission as PDF",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to submission with id 15249292.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Get a submission as PDF",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find the submission/registration with id 16249292. It has probably been deleted.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/attachments": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "List all attachments for a submission.",
+        "operationId": "Listallattachmentsforasubmission.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List all attachments for a submission.",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/200"
+                  }
+                },
+                "example": [
+                  253519
+                ]
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to submission with id 15250975.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find the submission/registration with id 16250975. It has probably been deleted.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/attachments/{attachmentId}": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get an attachment by id.",
+        "operationId": "Getanattachmentbyid.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          },
+          {
+            "$ref": "#/components/parameters/attachmentId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New Request",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                },
+                "example": {
+                  "fileName": "ESCAN - protocol specification V1-1.pdf",
+                  "fileSize": 351765,
+                  "mediaType": "application/pdf",
+                  "content": "AwIFIvSW5mbyAxMTAgMCBSL0lEWzw2ODRGNzNEOTFFMkMyMTQwQTlGNDAzRThBOTE0M0I5RT48Njg0RjczRDkxRTJDMjE0MEE5RjQwM0U4QTkxNDNCOUU+XSAvUHJldiAzMjI2NzcvWFJlZlN0bSAzMTk2MzM+Pg0Kc3RhcnR4cmVmDQozNTE1ODANCiUlRU9G"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to submission with id 15250975.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find the submission/registration with id 15251989. It has probably been deleted.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/encrypted-json": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get an encrypted JSON-serialization of the submission.",
+        "operationId": "GetanencryptedJSON-serializationofthesubmission.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "400": {
+            "description": "Not supported",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Form with ID 211434 does not support encryption.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "No access",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/403"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "No access to submission with id 15250975.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/404"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Could not find the submission/registration with id 15280975. It has probably been deleted.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/encrypted-pdf": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get an encrypted PDF-serialization of the submission.",
+        "operationId": "GetanencryptedPDF-serializationofthesubmission.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "400": {
+            "description": "Not supported",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Form with ID 211434 does not support encryption.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/encrypted-attachments/": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "List all encrypted attachments for a submission.",
+        "operationId": "Listallencryptedattachmentsforasubmission.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          },
+          "400": {
+            "description": "Not supported",
+            "content": {
+              "application/json;charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Form with ID 211434 does not support encryption.",
+                  "errors": null,
+                  "nestedErrors": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/encrypted-attachments/{encryptedAttachmentId}": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get the encrypted attachment.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/submissionId"
+          },
+          {
+            "name": "encryptedAttachmentId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The ID of the encrypted attachment"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/reference-data/": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Some fields have restrictions on the values that can be set. A list of those fields, and their current legal values can be found at the following endpoint.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "deliveryDestination": {
+                    "EMAIL_ONLY": "Kun motta svar på e-post",
+                    "DATABASE": "Lagrer svar i Nettskjema"
+                  },
+                  "respondentGroup": {
+                    "ID_PORTEN_LEVEL_4": "ID-porten nivå 4",
+                    "FEIDE": "UiO- og Feide-brukere",
+                    "ID_PORTEN_LEVEL_3_SIGNING": "Signering med ID-porten nivå 3",
+                    "INVITED": "Kun inviterte",
+                    "ID_PORTEN_LEVEL_3": "ID-porten",
+                    "ID_PORTEN_LEVEL_4_SIGNING": "Signering med ID-porten nivå 4",
+                    "ALL": "Alle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "200": {
+        "type": "object"
+      },
+      "400": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "description": "",
+            "default": 400
+          },
+          "message": {
+            "type": "string",
+            "description": "",
+            "example": "Not token authenticated"
+          },
+          "errors": {},
+          "nestedErrors": {}
+        }
+      },
+      "403": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "description": "",
+            "default": 403
+          },
+          "message": {
+            "type": "string",
+            "description": "",
+            "example": "No access to form with id 211434."
+          },
+          "errors": {},
+          "nestedErrors": {}
+        }
+      },
+      "404": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "description": "",
+            "default": 404
+          },
+          "message": {
+            "type": "string",
+            "description": "",
+            "example": "Could not find form with id 123."
+          },
+          "errors": {},
+          "nestedErrors": {}
+        }
+      }
+    },
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "number"
+        },
+        "description": "The ID of the form"
+      },
+      "userId": {
+        "name": "userId",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "number"
+        },
+        "description": "The ID of the User"
+      },
+      "submissionId": {
+        "name": "submissionId",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "number"
+        },
+        "description": "The ID of the submission"
+      },
+      "formId": {
+        "name": "formId",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "number"
+        },
+        "description": "The ID of the form"
+      },
+      "attachmentId": {
+        "name": "attachmentId",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "schema": {
+          "type": "number"
+        },
+        "description": "The ID of the attachment"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "forms",
+      "description": "Operations related to forms"
+    },
+    {
+      "name": "invitations",
+      "description": "Send reminders, get invites or invite more people"
+    },
+    {
+      "name": "submissions",
+      "description": "Get and delete submissions"
+    }
+  ]
+}

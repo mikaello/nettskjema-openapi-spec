@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.19.5/swagger-ui.css"
+    />
+    <style>
+      .topbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <!-- VIEW THIS FILE LOCALLY BY STARTING A PYTHON SERVER:
+
+      python3 -m http.server
+
+      AND ACCESS THE SITE ON localhost:8000 -->
+
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.19.5/swagger-ui-bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.19.5/swagger-ui-standalone-preset.js"></script>
+    <script type="text/javascript" src="./openapi.json"></script>
+    <script>
+      window.onload = async function () {
+        const request = new Request("./openapi.json");
+        const response = await fetch(request);
+        const spec = await response.json();
+
+        const ui = SwaggerUIBundle({
+          spec: spec,
+          dom_id: "#swagger-ui",
+          deepLinking: true,
+          presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+          plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+          layout: "StandaloneLayout",
+        });
+
+        window.ui = ui;
+      };
+    </script>
+  </body>
+</html>
